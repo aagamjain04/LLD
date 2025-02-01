@@ -125,6 +125,5 @@ public class SingleResponsibility {
         repository.save(employee1);
         double netSalary = calculator.calculateNetSalary(employee1);
         emailService.sendPayslip(employee1, netSalary);
-
     }
 }
