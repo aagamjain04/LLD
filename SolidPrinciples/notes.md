@@ -54,3 +54,20 @@ The **OCP** states that software entities should be open for extension but close
 - Can add new notification types without changing the existing **NotificationService** class
 
 ---
+
+## Liskov-Substitution Principle
+
+The **LSP** states that if class B is subtype of class A, then we should be able to replace the object of A with B without breaking the behaviour of the program.
+
+### The bad approach:
+- The **Bike** interface assumes all bikes have engines (by including **turnOnEngine()** method)
+- The **Bicycle** implementation cannot fulfill this throws an exception
+- **Code** - [LiskovSubstitutionViolation.java]()
+
+### The good approach:
+- Subclass should extend the capability of parent class and not narrow it down.
+- Only include methods in the interface that all implementations can support.
+- **Code** - [LiskovSubstitutionSolution.java]()
+
+
+---
