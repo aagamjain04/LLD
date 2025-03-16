@@ -62,12 +62,12 @@ The **LSP** states that if class B is subtype of class A, then we should be able
 ### The bad approach:
 - The **Bike** interface assumes all bikes have engines (by including **turnOnEngine()** method)
 - The **Bicycle** implementation cannot fulfill this throws an exception
-- **Code** - [LiskovSubstitutionViolation.java]()
+- **Code** - [LiskovSubstitutionViolation.java](https://github.com/aagamjain04/LLD/blob/main/SolidPrinciples/src/LiskovSubstitutionViolation.java)
 
 ### The good approach:
 - Subclass should extend the capability of parent class and not narrow it down.
 - Only include methods in the interface that all implementations can support.
-- **Code** - [LiskovSubstitutionSolution.java]()
+- **Code** - [LiskovSubstitutionSolution.java](https://github.com/aagamjain04/LLD/blob/main/SolidPrinciples/src/LiskovSubstitutionSolution.java)
 
 
 ---
