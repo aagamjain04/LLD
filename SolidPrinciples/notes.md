@@ -71,3 +71,19 @@ The **LSP** states that if class B is subtype of class A, then we should be able
 
 
 ---
+
+### Interface Segregation Principle
+
+- The **ISP** states that client should not be forced to depend upon interfaces they do not use.
+- In other words it's better to have many specific interfaces rather than one general purpose interface. 
+
+### The bad approach:
+- **Code** - [InterfaceSegregationViolation.java](https://github.com/aagamjain04/LLD/blob/main/SolidPrinciples/src/InterfaceSegregationViolation.java)
+- In the above example, **RobotWorker** is forced to implement eat() and sleep() methods even though these operations don't make sense for robots. This is a clear violation of ISP.
+
+### The good approch:
+- **Code** - [InterfaceSegregationSolution.java](https://github.com/aagamjain04/LLD/blob/main/SolidPrinciples/src/InterfaceSegregationSolution.java)
+- We've broken down the monolithic Worker interface into three smaller, focused interfaces.
+- HumanWorker implements all three interfaces since humans can work, eat, and sleep.
+- RobotWorker only implements the Workable interface, which is all it needs.
+- This way, classes only implement interfaces relevant to their functionality, and client code can depend only on the interfaces it actually needs.
