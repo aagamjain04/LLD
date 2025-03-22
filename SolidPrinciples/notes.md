@@ -88,6 +88,8 @@ The **LSP** states that if class B is subtype of class A, then we should be able
 - RobotWorker only implements the Workable interface, which is all it needs.
 - This way, classes only implement interfaces relevant to their functionality, and client code can depend only on the interfaces it actually needs.
 
+---
+
 ### Dependency Inversion Principle
 It states:
 - High-level modules should not depend on low-level modules. Both should depend on abstractions.
