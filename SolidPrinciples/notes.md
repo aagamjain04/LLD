@@ -87,3 +87,21 @@ The **LSP** states that if class B is subtype of class A, then we should be able
 - HumanWorker implements all three interfaces since humans can work, eat, and sleep.
 - RobotWorker only implements the Workable interface, which is all it needs.
 - This way, classes only implement interfaces relevant to their functionality, and client code can depend only on the interfaces it actually needs.
+
+### Dependency Inversion Principle
+It states:
+- High-level modules should not depend on low-level modules. Both should depend on abstractions.
+- Abstractions should not depend on details. Details should depend on abstractions.
+
+### The bad approach:
+- **Code** - [DependencyInversionViolation.java](https://github.com/aagamjain04/LLD/blob/main/SolidPrinciples/src/DependencyInversionViolation.java)
+- UserService (high-level) directly depends on MySQLDatabase (low-level)
+- Difficult to test UserService in isolation
+- Cannot easily swap database implementations (e.g., switch to MongoDB)
+
+### The good approach:
+- **Code** - [DependencyInversionSolution.java](https://github.com/aagamjain04/LLD/blob/main/SolidPrinciples/src/DependencyInversionSolution.java)
+- **Decoupling**: UserService is decoupled from specific database implementations
+- **Flexibility**: Can easily switch database implementations without changing UserService
+- **Testability**: Can test UserService with a mock database implementation
+- **Extension**: Can add new database implementations without modifying existing code
