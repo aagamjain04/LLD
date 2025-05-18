@@ -3,8 +3,8 @@
 ## Requirements
 
 1. Configure multiple parking floors with different types of spots:
-2. Handicapped, Compact, Large, Motorcycle.
-3. Allow four types of vehicles to park: Car, Truck, Van, Motorcycle.
+2. Car, Motorcycle, Truck.
+3. Allow three types of vehicles to park: Car, Truck, Motorcycle.
 5. Generate and assign parking tickets upon vehicle entry.
 6. Calculate parking fees based on duration.
 7. Accept payments via: Credit/Debit Card, Cash.
@@ -16,7 +16,7 @@
 ## Design Patterns
 
 * Singleton Pattern - Ensures only one ParkingLot instance.
-* Factory Pattern - Creates ParkingSpot and Vehicle objects.
+* Factory Pattern - Creates PaymentStrategy and Vehicle objects.
 * Observer Pattern - Updates DisplayBoard based on parking changes.
 * Strategy Pattern - Handles payment and parking fee calculations dynamically.
 ---

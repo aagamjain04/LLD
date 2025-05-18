@@ -1,9 +1,9 @@
-package ParkingLot.vehicle;
+package ParkingLotLLD.vehicle;
 
-import ParkingLot.parking.ParkingSpotType;
+import ParkingLotLLD.parkingspot.ParkingSpotType;
 
-public class Motorcycle extends Vehicle {
-    public Motorcycle(String licenseNumber) {
+public class Bike extends Vehicle{
+    public Bike(String licenseNumber) {
         super(licenseNumber, VehicleType.MOTORCYCLE);
     }
 

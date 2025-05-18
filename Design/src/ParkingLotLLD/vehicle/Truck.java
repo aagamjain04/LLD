@@ -1,6 +1,6 @@
-package ParkingLot.vehicle;
+package ParkingLotLLD.vehicle;
 
-import ParkingLot.parking.ParkingSpotType;
+import ParkingLotLLD.parkingspot.ParkingSpotType;
 
 public class Truck extends Vehicle{
     public Truck(String licenseNumber) {
@@ -9,6 +9,6 @@ public class Truck extends Vehicle{
 
     @Override
     public ParkingSpotType getSpotType() {
-        return ParkingSpotType.LARGE;
+        return ParkingSpotType.TRUCK;
     }
 }
