@@ -74,7 +74,7 @@ public class BookingDataFactory {
         );
 
         theatreController.addTheatre(City.Bangalore,inox);
-        theatreController.addTheatre(City.Delhi,inox);
+        theatreController.addTheatre(City.Delhi,pvr);
     }
 
 }
