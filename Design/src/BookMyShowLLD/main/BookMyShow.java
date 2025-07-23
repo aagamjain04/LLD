@@ -1,6 +1,6 @@
 package BookMyShowLLD.main;
 
-import BookMyShowLLD.Service.BookingService;
+import BookMyShowLLD.service.BookingService;
 
 public class BookMyShow {
     public static void main(String[] args) {

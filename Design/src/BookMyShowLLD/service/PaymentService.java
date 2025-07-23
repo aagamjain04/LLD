@@ -1,4 +1,4 @@
-package BookMyShowLLD.Service;
+package BookMyShowLLD.service;
 
 public class PaymentService {
 
