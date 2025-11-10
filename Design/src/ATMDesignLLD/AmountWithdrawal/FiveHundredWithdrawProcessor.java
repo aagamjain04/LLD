@@ -17,10 +17,10 @@ public class FiveHundredWithdrawProcessor implements CashWithdrawProcessor{
         int balance = remainingAmount%500;
 
         if(required <= atm.getNoOfFiveHundredNotes()) {
-            atm.deductTwoThousandNotes(required);
+            atm.deductFiveHundredNotes(required);
         }
         else if(required > atm.getNoOfFiveHundredNotes()) {
-            atm.deductTwoThousandNotes(atm.getNoOfFiveHundredNotes());
+            atm.deductFiveHundredNotes(atm.getNoOfFiveHundredNotes());
             balance = balance + (required-atm.getNoOfFiveHundredNotes()) * 500;
         }
 

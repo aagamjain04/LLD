@@ -20,7 +20,7 @@ public class OneHundredWithdrawProcessor implements CashWithdrawProcessor{
             atm.deductOneHundredNotes(required);
         }
         else if(required > atm.getNoOfOneHundredNotes()) {
-            atm.deductTwoThousandNotes(atm.getNoOfOneHundredNotes());
+            atm.deductOneHundredNotes(atm.getNoOfOneHundredNotes());
             balance = balance + (required-atm.getNoOfOneHundredNotes()) * 100;
         }
 
