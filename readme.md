@@ -216,3 +216,103 @@ class EmailService {
 - **Confusing aggregation with association**: Aggregation implies part-of relationship
 - **Ignoring dependency direction**: Dependencies should point toward stable abstractions
 - **Creating circular dependencies**: Can cause memory leaks and initialization issues
+
+---
+
+
+# Low Level Design (LLD) Interview Approach Guide
+
+## Overview
+Low Level Design focuses on detailed system architecture, class design, and implementation details. Unlike High Level Design (HLD), LLD dives into the actual code structure, APIs, and database schemas.
+
+## Step-by-Step Approach
+
+### 1. Clarify Requirements (5-10 minutes)
+- **Functional Requirements**: What features need to be implemented?
+- **Non-functional Requirements**: Performance, scalability, security constraints
+- **Scope**: What's in scope vs out of scope for this design?
+- **Constraints**: Time limits, technology stack, existing systems
+
+**Key Questions to Ask:**
+- What are the core features we need to support?
+- What's the expected scale (users, requests per second)?
+- Are there any specific technology constraints?
+- What are the performance requirements?
+
+### 2. Estimate Scale and Constraints (2-3 minutes)
+- Number of users (daily/monthly active users)
+- Read vs Write ratio
+- Data storage requirements
+- Response time expectations
+- Availability requirements
+
+### 3. Define Core Entities and Use Cases (10-15 minutes)
+- Identify main entities/objects
+- Define relationships between entities
+- List primary use cases/user flows
+- Prioritize must-have vs nice-to-have features
+
+**Example for Chat System:**
+```
+Entities: User, Message, ChatRoom, Group
+Use Cases: Send message, Create group, Join group, Get message history
+```
+
+### 4. Design Database Schema (10-15 minutes)
+- Choose appropriate database type (SQL/NoSQL)
+- Design tables/collections with proper relationships
+- Define indexes for query optimization
+- Consider data partitioning if needed
+
+**Key Considerations:**
+- Normalization vs denormalization trade-offs
+- Primary keys and foreign key relationships
+- Indexing strategy for common queries
+- Data types and constraints
+
+### 5. Design APIs (15-20 minutes)
+- Define RESTful endpoints or GraphQL schemas
+- Specify request/response formats
+- Include authentication and authorization
+- Error handling and status codes
+
+**API Design Template:**
+```
+POST /api/v1/messages
+Request: { "chatId": "123", "content": "Hello", "userId": "456" }
+Response: { "messageId": "789", "timestamp": "2024-01-01T00:00:00Z", "status": "sent" }
+```
+
+### 6. Class Design and Architecture (15-20 minutes)
+- Apply SOLID principles
+- Use appropriate design patterns
+- Define interfaces and abstract classes
+- Show inheritance and composition relationships
+
+**Common Design Patterns:**
+- **Factory Pattern**: Object creation
+- **Observer Pattern**: Event notifications
+- **Strategy Pattern**: Algorithm selection
+- **Command Pattern**: Request encapsulation
+- **Decorator Pattern**: Feature enhancement
+
+### 7. Handle Edge Cases and Error Scenarios (5-10 minutes)
+- Network failures and timeouts
+- Data validation and sanitization
+- Concurrent access issues
+- Rate limiting and abuse prevention
+- Graceful degradation
+
+## Key Principles to Follow
+
+### SOLID Principles
+- **S**ingle Responsibility: One class, one purpose
+- **O**pen/Closed: Open for extension, closed for modification
+- **L**iskov Substitution: Subtypes must be substitutable
+- **I**nterface Segregation: Many specific interfaces > one general
+- **D**ependency Inversion: Depend on abstractions, not concretions
+
+### Design Patterns Checklist
+- **Creational**: Factory, Builder, Singleton
+- **Structural**: Adapter, Decorator, Facade
+- **Behavioral**: Observer, Strategy, Command, State
