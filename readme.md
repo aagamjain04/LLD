@@ -1,3 +1,10 @@
+### Principles of Object-Oriented Design
+- Encapsulation: Hide state, expose behavior. Make fields private, provide methods for access
+- Abstraction: Define interfaces for variations. Multiple payment methods? Different vehicle types? Create an interface
+- Polymorphism: Let objects handle themselves. No type checking, no switch statements on types
+- Inheritance: Compose behavior, don't inherit it. Reach for interfaces first, use inheritance only when sharing stable implementation
+
+
 # UML Relationships in Low-Level Design
 
 ## 1. Composition (Filled Diamond ♦)

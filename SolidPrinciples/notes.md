@@ -7,6 +7,14 @@
 - Flexible software
 - Reduce complexity
 
+
+## General Principles
+- KISS → Start simple, add complexity only when needed (Keep It Simple, Stupid)
+- DRY → Reduce duplication, simplify maintenance (Don't Repeat Yourself)
+- YAGNI → Build for today, not hypothetical futures (You Aren't Gonna Need It)
+- Separation of Concerns → Enable independent testing and changes
+- Law of Demeter → Reduce coupling, hide internal structure
+
 ## SOLID Principles
 - **S** - Single Responsibility Principle
 - **O** - Open / Close Principle
