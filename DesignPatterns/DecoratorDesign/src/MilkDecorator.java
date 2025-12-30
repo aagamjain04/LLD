@@ -7,12 +7,12 @@ public class MilkDecorator extends CoffeeDecorator {
 
     @Override
     public String getDescription() {
-        return super.getDescription() + ", Milk";
+        return coffee.getDescription() + ", Milk";
     }
 
     @Override
     public double getCost() {
-        return super.getCost() + 20;
+        return coffee.getCost() + 20;
     }
 
 

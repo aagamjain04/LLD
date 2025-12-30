@@ -5,11 +5,11 @@ public class WhippedCreamDecorator extends CoffeeDecorator {
 
     @Override
     public String getDescription() {
-        return decoratedCoffee.getDescription() + ", Whipped Cream";
+        return coffee.getDescription() + ", Whipped Cream";
     }
 
     @Override
     public double getCost() {
-        return decoratedCoffee.getCost() + 40;
+        return coffee.getCost() + 40;
     }
 }

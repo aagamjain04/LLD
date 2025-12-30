@@ -1,21 +1,12 @@
 // Base Decorator
 public abstract class CoffeeDecorator implements Coffee {
 
-    protected final Coffee decoratedCoffee;
+    protected final Coffee coffee;
 
     public CoffeeDecorator(Coffee decoratedCoffee) {
-        this.decoratedCoffee = decoratedCoffee;
+        this.coffee = decoratedCoffee;
     }
 
-    @Override
-    public String getDescription(){
-        return decoratedCoffee.getDescription();
-    }
-
-    @Override
-    public double getCost(){
-        return decoratedCoffee.getCost();
-    }
 
 
 
