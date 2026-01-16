@@ -1,0 +1,145 @@
+Ride-Sharing Application — SDE II (90 min coding + 30 min review)
+
+Timebox
+- Total: 2 hours (90 min coding + 30 min review)
+
+Overview
+- Description: Implement a minimal ride-sharing application (in-memory) that supports user onboarding, vehicle registration, offering rides, selecting rides using strategies, ending rides, and printing ride statistics.
+- Focus on: clean design, correct behavior, modular code, and a working demo (driver) that executes the sample flows.
+
+Features (high-level)
+1. Users can onboard into the system (Driver or Passenger role implicit by actions).
+2. Users can register one or more vehicles.
+3. Users can offer a ride for a specific route (origin -> destination) with a vehicle and available seats.
+4. Passengers can search and select from multiple available rides for the same origin/destination.
+5. The system supports selection strategies (e.g., preferred vehicle type, most vacant ride).
+6. Rides can be ended; ending a ride releases any reserved seats and updates statistics.
+7. Print aggregate ride statistics per user (rides offered, rides taken — only counted when ride is ended).
+
+Requirements (detailed)
+1. Onboarding
+   - `add_user(user_detail)`
+     - Add basic user details (name, gender, age, id)
+
+2. Vehicle registration
+   - `add_vehicle(userId, vehicle_detail)`
+     - Add vehicle details for a user (vehicle type/name, registration number)
+     - A user can have multiple vehicles.
+
+3. Offer a ride
+   - `offer_ride(offerDetail)`
+     - offerDetail should include: userId (driver), vehicle registration number, origin, destination, availableSeats (int)
+     - A ride has no intermediate stops (direct origin -> destination).
+     - Constraint: A user cannot offer another active ride with the same vehicle while an active ride using that vehicle exists.
+
+4. Select a ride (passenger)
+   - `select_ride(userId, origin, destination, seatsRequested, selectionStrategy)`
+     - seatsRequested: 1 or 2 (limit as per problem statement)
+     - selectionStrategy examples:
+         a) Preferred Vehicle (e.g., "Activa", "Polo", "XUV") — pick a ride matching vehicle type and capacity
+         b) Most Vacant — pick the available ride with maximum free seats that satisfies the seat request
+     - Behavior: Find a single ride (single hop) that satisfies origin, destination, and seats. If not available directly, the bonus asks to find multi-hop paths (optional).
+     - On success: reserve seats on the chosen ride (reduce available seats) and record that passenger took the ride. Return ride identifier.
+     - On failure: return an appropriate message (e.g., "No rides found").
+
+5. End a ride
+   - `end_ride(rideId)`
+     - Marks the ride as ended (inactive). Releases seats and updates statistics.
+     - After end, the same vehicle can be used to offer a new ride.
+
+6. Print ride statistics
+   - `print_ride_stats()`
+     - For each user: print rides taken (only ended rides that user took) and rides offered (only ended rides the user offered).
+
+Selection Strategy (notes)
+- Preferred Vehicle:
+  - Filter rides by vehicle type first, then by origin/destination/capacity.
+- Most Vacant:
+  - Choose the ride with the highest availableSeats that can satisfy the seatsRequested.
+
+Bonus (optional)
+- Multi-hop search: If no direct ride exists for origin->destination, return a combination of rides that connect via intermediate stops (e.g., Bangalore -> Goa, Goa -> Mumbai). This increases complexity (graph search), so implement only if time permits.
+
+Other notes / constraints
+- Use an in-memory data structure (no DB).
+- No UI required — provide a driver/demo class that executes the sample flows.
+- Prioritize a working demo and correctness over extra features.
+- Proper exception handling and modularity required.
+
+Expectations (quality)
+- Code should be modular and readable.
+- Use proper abstraction and separation of concerns (models, repositories, services, strategies).
+- Code should be unit-testable.
+- Handle edge cases (no rides, insufficient seats, duplicate offers for same vehicle, invalid input).
+
+Sample test flow (step-by-step)
+1) Onboard users and vehicles
+   - `add_user("Rohan", "M", 36); add_vehicle("Rohan", "Swift", "KA-01-12345");`
+   - `add_user("Shashank", "M", 29); add_vehicle("Shashank", "Baleno", "TS-05-62395");`
+   - `add_user("Nandini", "F", 29);`
+   - `add_user("Shipra", "F", 27); add_vehicle("Shipra", "Polo", "KA-05-41491"); add_vehicle("Shipra", "Activa", "KA-12-12332");`
+   - `add_user("Gaurav", "M", 29);`
+   - `add_user("Rahul", "M", 35); add_vehicle("Rahul", "XUV", "KA-05-1234");`
+
+2) Offer rides (by drivers)
+   - `offer_ride(driver=Rohan, origin=Hyderabad, destination=Bangalore, seats=1, vehicle=Swift/KA-01-12345)`
+   - `offer_ride(driver=Shipra, origin=Bangalore, destination=Mysore, seats=1, vehicle=Activa/KA-12-12332)`
+   - `offer_ride(driver=Shipra, origin=Bangalore, destination=Mysore, seats=2, vehicle=Polo/KA-05-41491)`
+   - `offer_ride(driver=Shashank, origin=Hyderabad, destination=Bangalore, seats=2, vehicle=Baleno/TS-05-62395)`
+   - `offer_ride(driver=Rahul, origin=Hyderabad, destination=Bangalore, seats=5, vehicle=XUV/KA-05-1234)`
+   - `offer_ride(driver=Rohan, origin=Bangalore, destination=Pune, seats=1, vehicle=Swift/KA-01-12345)`  // should fail because Rohan already has an active ride using that vehicle
+
+3) Select rides (passengers)
+   - `select_ride(Nandini, origin=Bangalore, destination=Mysore, seats=1, strategy=Most Vacant)`
+     -> expected: Shipra's Polo (2 seats) or Activa (1 seat) depending on Most Vacant; sample expected output references a specific ride id (2(c) in instructions) — in demo ensure visible mapping between rides and ids
+
+   - `select_ride(Gaurav, origin=Bangalore, destination=Mysore, seats=1, strategy=PreferredVehicle: Activa)`
+     -> expected: Shipra's Activa ride
+
+   - `select_ride(Shashank, origin=Mumbai, destination=Bangalore, seats=1, strategy=Most Vacant)`
+     -> expected: No rides found
+
+   - `select_ride(Rohan, origin=Hyderabad, destination=Bangalore, seats=1, strategy=PreferredVehicle: Baleno)`
+     -> expected: Shashank's Baleno ride (if available)
+
+   - `select_ride(Shashank, origin=Hyderabad, destination=Bangalore, seats=1, strategy=PreferredVehicle: Polo)`
+     -> expected: No rides found (Polo is not offered on that route)
+
+4) End rides
+   - `end_ride(<rideId for 2-a>)`
+   - `end_ride(<rideId for 2-b>)`
+   - `end_ride(<rideId for 2-c>)`
+   - `end_ride(<rideId for 2-d>)`
+
+5) Print ride statistics (only ended rides count)
+   - `print_ride_stats()`  // expected summary per user
+   Example expected output (from the instructions):
+   - Nandini: 1 Taken, 0 Offered
+   - Rohan: 1 Taken, 1 Offered
+   - Shashank: 0 Taken, 1 Offered
+   - Gaurav: 1 Taken, 0 Offered
+   - Rahul: 0 Taken, 0 Offered
+   - Shipra: 0 Taken, 2 Offered
+
+Implementation tips / contract
+- Models: User, Vehicle, Ride, Booking/Reservation (if needed)
+- Repositories: in-memory maps/lists to hold Users, Vehicles, Rides, Bookings
+- Services: RideService (offer, select, end), UserService (add user/vehicle), StatsService or include stats in RideService
+- Strategy: SelectionStrategy interface with concrete implementations (PreferredVehicleStrategy, MostVacantStrategy)
+- IDs: Use simple unique id generation for rides and bookings (e.g., incremental counter or UUID prefix)
+- Concurrency: simple synchronized methods on ride capacity updates if needed
+
+Edge cases to handle
+- Attempting to offer a ride with a vehicle that already has an active ride should fail gracefully
+- Selecting more seats than available should fail
+- Attempting to end a non-existent or already-ended ride should be handled
+- Adding vehicles for unknown users should be validated
+
+Driver / Demo
+- Provide a single driver class (main) that executes the sample test flow above and prints descriptive outputs so the behavior can be reviewed quickly during the 30-minute review.
+
+Notes on bonus
+- Multi-hop itinerary search increases complexity (graph traversal) — attempt only if time remains after core flows are implemented and tested.
+
+----
+(End of reformatted instructions)
